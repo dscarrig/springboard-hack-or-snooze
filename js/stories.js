@@ -97,7 +97,6 @@ function putFavoriteStoriesOnpage() {
 //NEW puts all of the user's submitted stories on the page
 function putMyStoriesOnpage() {
   $myStoriesList.empty();
-  console.log("MY STORIES");
 
   if(currentUser.ownStories.length === 0){
     $myStoriesList.append("<h3>No stories added by user yet!");

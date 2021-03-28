@@ -89,8 +89,6 @@ class StoryList {
     this.stories.unshift(story);
     user.ownStories.unshift(story);
 
-    console.log(story);
-
     return story;
   }
 }
