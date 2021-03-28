@@ -24,8 +24,7 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return new URL(this.url).host;
   }
 }
 
@@ -87,6 +86,8 @@ class StoryList {
     });
 
     const story = new Story(response.data.story);
+    this.stories.unshift(story);
+    user.ownStories.unshift(story);
 
     console.log(story);
 
@@ -209,4 +210,47 @@ class User {
       return null;
     }
   }
+
+  //NEW adds the given story to favorites
+  async addFavoriteStory(newStory){
+    this.favorites.push(newStory);
+    const token = this.loginToken;
+
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${newStory.storyId}`,
+      method: "POST",
+      data: {token}
+    });
+  }
+
+  //NEW finds the given story and removes it from favorites
+  async removeFavoriteStory(newStory){
+
+    for(let i = 0; i < this.favorites.length; i++){
+      if(this.favorites[i].storyId === newStory.storyId){
+        this.favorites.splice(i, 1);
+      }
+    }
+
+    const token = this.loginToken;
+
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${newStory.storyId}`,
+      method: "DELETE",
+      data: {token}
+    });
+  }
+
+  //NEW checks if a given story is a favorite
+  isFavorite(story) {
+    for(let favStory of this.favorites){
+      if(favStory.storyId === story.storyId){
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
+
+

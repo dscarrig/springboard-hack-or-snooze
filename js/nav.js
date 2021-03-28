@@ -36,24 +36,28 @@ function updateNavOnLogin() {
 }
 
 
+//NEW code for navigating to the submit form
 $body.on("click", "#nav-submit", navSubmitClick)
 
 function navSubmitClick(evt) {
-  console.log("SUBMIT");
   hidePageComponents();
   $submitStoryForm.show();
 }
 
 
+//NEW code for navigating to the favorited list
 $body.on("click", "#nav-favorites", navFavoritesClick)
 
 function navFavoritesClick(evt) {
-  console.log("FAVORITES");
+  hidePageComponents();
+  putFavoriteStoriesOnpage();
 }
 
 
+//NEW code for navigating to the user's stories
 $body.on("click", "#nav-my-stories", navMyStoriesClick)
 
 function navMyStoriesClick(evt) {
-  console.log("MY STORIES");
+  hidePageComponents();
+  putMyStoriesOnpage();
 }
